@@ -476,11 +476,6 @@ function sound(freq) {
 }
 
 function input(dir, s = state.snakes[0]) {
-  if (state.online && ws?.readyState === 1) {
-    let name = Object.entries(DIR).find(([, v]) => v === dir)?.[0];
-    ws.send(JSON.stringify({ type: 'dir', dir: name }));
-    return;
-  }
   if (!s || !state.running) return;
   if (dir.x + s.dir.x === 0 && dir.y + s.dir.y === 0) return;
   s.next = dir;
@@ -515,61 +510,7 @@ $('#sound').onchange = e => { settings.sound = e.target.checked; save(); };
 $('#music').onchange = e => { settings.music = e.target.checked; save(); };
 $('#soundBtn').onclick = () => { settings.sound = !settings.sound; save(); $('#soundBtn').textContent = settings.sound ? '🔊' : '🔇'; };
 
-let ws;
-function connect(type) {
-  let name = $('#playerName').value || 'Rusher', room = $('#roomCode').value;
-  state.online = true;
-  ws = new WebSocket(`${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}`);
-  ws.onopen = () => ws.send(JSON.stringify({ type, name, room }));
-  ws.onmessage = e => onlineMessage(JSON.parse(e.data));
-  ws.onerror = () => toast('Could not reach room server.');
-}
-
-function onlineMessage(m) {
-  if (m.type === 'error') { toast(m.message); return; }
-  if (m.type === 'notice') { toast(m.message); return; }
-  if (m.type === 'reaction') { toast(`${m.name}: ${m.emoji}`); return; }
-
-  if (m.type === 'state' && m.phase === 'playing') {
-    show('game');
-    state.running = false;
-    state.mode = 'online';
-    state.score = 0; state.level = 1; state.foods = 0;
-    state.remaining = m.timer;
-    state.obstacles = []; state.portals = []; state.special = null;
-    state.snakes = m.players.map(p => ({
-      name: p.name, colour: p.colour, body: p.snake, dir: p.dir, next: p.dir, alive: p.alive, score: p.score
-    }));
-    state.score = Math.max(...m.players.map(p => p.score));
-    renderHud();
-    draw();
-    return;
-  }
-
-  if (m.type === 'state' && m.phase === 'results') {
-    state.online = false;
-    show('online');
-    toast('Match finished — check the scores!');
-  }
-
-  if (m.type === 'state') {
-    show('online');
-    let l = $('#lobby');
-    l.classList.remove('hidden');
-    l.innerHTML = `
-      <h3>Room ${m.room}</h3>
-      <p>${m.phase === 'lobby' ? 'Everyone ready?' : 'Match in progress'}</p>
-      ${m.players.map(p => `<div class="lobby-player">${infoSkin(p.colour)} ${p.name} — ${p.ready ? 'READY' : 'WAITING'}</div>`).join('')}
-      <button id="ready" class="secondary">Ready</button>
-      <button id="hostStart" class="primary">Start match</button>
-      <div class="reactions">${['❤️', '😂', '🔥', '😱', '🎉'].map(x => `<button data-reaction="${x}">${x}</button>`).join('')}</div>`;
-    $('#ready').onclick = () => ws.send(JSON.stringify({ type: 'ready' }));
-    $('#hostStart').onclick = () => ws.send(JSON.stringify({ type: 'start' }));
-    $$('[data-reaction]').forEach(b => b.onclick = () => ws.send(JSON.stringify({ type: 'reaction', emoji: b.dataset.reaction })));
-  }
-}
-
-$('#createRoom').onclick = () => connect('create');
-$('#joinRoom').onclick = () => connect('join');
+$('#createRoom').onclick = () => toast('Online mode requires a server. Use Classic/Speed/Maze/Time/Challenge modes for now!');
+$('#joinRoom').onclick = () => toast('Online mode requires a server. Use Classic/Speed/Maze/Time/Challenge modes for now!');
 
 renderMenu();
