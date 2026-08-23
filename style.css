@@ -18,7 +18,6 @@ html, body {
   overflow-x: hidden;
 }
 
-/* Decorative orbs */
 .orb {
   position: fixed;
   border-radius: 50%;
@@ -42,7 +41,6 @@ main {
   flex-direction: column;
 }
 
-/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -70,7 +68,6 @@ header {
 }
 .header-actions button:hover { transform: scale(1.08); }
 
-/* Screens */
 .screen { display: none; animation: fadeIn .35s ease; }
 .screen.active { display: block; }
 @keyframes fadeIn { from { opacity: 0; transform: translateY(10px);} to { opacity: 1; transform: translateY(0);} }
@@ -84,7 +81,6 @@ header {
   border: 1px solid rgba(255,255,255,0.5);
 }
 
-/* Menu */
 .hero { text-align: center; margin: 30px 0; }
 .eyebrow {
   color: var(--accent);
@@ -137,12 +133,7 @@ header {
 }
 .profile b { color: var(--text); }
 
-/* Buttons */
-button {
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-}
+button { font-family: inherit; border: none; cursor: pointer; }
 .primary, .secondary {
   padding: 14px 28px;
   border-radius: 14px;
@@ -174,7 +165,6 @@ button {
   margin-bottom: 12px;
 }
 
-/* Game HUD */
 .hud {
   display: flex;
   gap: 16px;
@@ -217,10 +207,7 @@ button {
   max-width: 100%;
   height: auto;
 }
-aside {
-  min-width: 180px;
-  max-width: 240px;
-}
+aside { min-width: 180px; max-width: 240px; }
 .mission {
   background: var(--panel);
   backdrop-filter: blur(12px);
@@ -268,7 +255,6 @@ aside {
   line-height: 1.6;
 }
 
-/* Touch controls */
 .touch {
   display: none;
   grid-template-columns: repeat(3, 64px);
@@ -291,7 +277,6 @@ aside {
 .touch button[data-dir="down"] { grid-column: 2; grid-row: 2; }
 .touch button[data-dir="right"] { grid-column: 3; grid-row: 2; }
 
-/* Toast */
 #toast {
   position: absolute;
   top: 50%; left: 50%;
@@ -309,7 +294,6 @@ aside {
 }
 #toast.show { opacity: 1; transform: translate(-50%, -60%); }
 
-/* Modal */
 .modal {
   position: fixed;
   inset: 0;
@@ -352,7 +336,6 @@ aside {
 }
 .stat-grid b { display: block; color: var(--text); font-size: 20px; margin-top: 4px; }
 
-/* Settings */
 label {
   display: flex;
   justify-content: space-between;
@@ -390,7 +373,6 @@ select, input[type="text"] {
   color: var(--text);
 }
 
-/* Online */
 .online-actions {
   display: flex;
   gap: 10px;
@@ -419,7 +401,6 @@ select, input[type="text"] {
   font-size: 18px;
 }
 
-/* Leaderboard */
 ol { padding-left: 20px; }
 ol li {
   padding: 10px 0;
@@ -430,7 +411,6 @@ ol li b { color: var(--accent2); }
 
 .muted { color: var(--muted); font-size: 14px; margin-top: 8px; }
 
-/* Responsive */
 @media (max-width: 720px) {
   .hero h1 { font-size: 28px; }
   .game-layout { flex-direction: column; align-items: center; }
