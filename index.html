@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake Rush</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="orb o1"></div>
+  <div class="orb o2"></div>
+  <div class="orb o3"></div>
+
+  <main>
+    <header>
+      <div class="brand">
+        <span>🐍</span>
+        <div>
+          <b>SNAKE RUSH</b>
+          <small>classic snake, color party</small>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="soundBtn" title="Sound">🔊</button>
+        <button data-screen="settings">⚙️</button>
+      </div>
+    </header>
+
+    <!-- MENU -->
+    <section id="menu" class="screen active">
+      <div class="hero">
+        <p class="eyebrow">READY, SET, SLITHER</p>
+        <h1>A sweet little <em>rush.</em></h1>
+        <p>Eat, grow, dodge, and own the rainbow grid.</p>
+      </div>
+      <div class="mode-grid" id="modeGrid"></div>
+      <div class="menu-row">
+        <button class="primary" id="playBtn">Play solo <span>→</span></button>
+        <button class="secondary" data-screen="online">Online room</button>
+      </div>
+      <div class="profile">
+        <span>🏆 Best <b id="menuBest">0</b></span>
+        <span>✨ <b id="achievementCount">0</b>/8 badges</span>
+        <button class="text-btn" data-screen="leaderboard">Leaderboard</button>
+      </div>
+    </section>
+
+    <!-- GAME -->
+    <section id="game" class="screen">
+      <div class="hud">
+        <div><small>SCORE</small><b id="score">0</b></div>
+        <div><small>HIGH SCORE</small><b id="high">0</b></div>
+        <div><small>LEVEL</small><b id="level">1</b></div>
+        <div><small>COMBO</small><b id="combo">×1</b></div>
+        <div><small>TIME</small><b id="time">∞</b></div>
+        <button id="pauseBtn">Ⅱ</button>
+      </div>
+      <div class="game-layout">
+        <div class="board-wrap">
+          <canvas id="board" width="720" height="720"></canvas>
+          <div id="toast"></div>
+        </div>
+        <aside>
+          <div class="mission">
+            <span>🎯 TODAY'S MISSION</span>
+            <b id="missionText">Eat 10 apples</b>
+            <div class="bar"><i id="missionBar"></i></div>
+          </div>
+          <div class="players" id="players"></div>
+          <div class="power-list" id="powers"></div>
+          <p class="hint">Arrow keys / WASD<br>Swipe or touch controls</p>
+        </aside>
+      </div>
+      <div id="touch" class="touch">
+        <button data-dir="up">↑</button>
+        <button data-dir="left">←</button>
+        <button data-dir="down">↓</button>
+        <button data-dir="right">→</button>
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section id="settings" class="screen panel">
+      <button class="back" data-screen="menu">← Back</button>
+      <h2>Settings</h2>
+      <label>Snake colour
+        <select id="skin">
+          <option value="pink">Pink rush</option>
+          <option value="purple">Purple pop</option>
+          <option value="blue">Blue breeze</option>
+          <option value="mint">Mint swirl</option>
+        </select>
+      </label>
+      <label>Local players
+        <select id="localPlayers">
+          <option value="2">2 players</option>
+          <option value="3">3 players</option>
+          <option value="4">4 players</option>
+        </select>
+      </label>
+      <label>Mobile controls
+        <select id="control">
+          <option value="buttons">Touch buttons</option>
+          <option value="swipe">Swipe anywhere</option>
+        </select>
+      </label>
+      <label><input id="music" type="checkbox"> Music pulses</label>
+      <label><input id="sound" type="checkbox" checked> Sound effects</label>
+      <h3>Achievements</h3>
+      <div id="badges" class="badges"></div>
+    </section>
+
+    <!-- ONLINE -->
+    <section id="online" class="screen panel">
+      <button class="back" data-screen="menu">← Back</button>
+      <h2>Play with friends</h2>
+      <p class="muted">Create a private room or join a five-letter code.</p>
+      <input id="playerName" maxlength="14" placeholder="Your name">
+      <div class="online-actions">
+        <button id="createRoom" class="primary">Create room</button>
+        <input id="roomCode" maxlength="5" placeholder="CODE">
+        <button id="joinRoom" class="secondary">Join</button>
+      </div>
+      <div id="lobby" class="lobby hidden"></div>
+    </section>
+
+    <!-- LEADERBOARD -->
+    <section id="leaderboard" class="screen panel">
+      <button class="back" data-screen="menu">← Back</button>
+      <h2>Local legends</h2>
+      <ol id="scores"></ol>
+      <p class="muted">Scores stay on this device. Online results appear in the room after a match.</p>
+    </section>
+
+    <!-- MODAL -->
+    <div id="modal" class="modal hidden">
+      <div class="modal-card">
+        <div id="confetti">🎉 ✨ 🌈 ⭐</div>
+        <h2 id="modalTitle">Game over</h2>
+        <p id="modalSub"></p>
+        <div id="stats"></div>
+        <button id="again" class="primary">Play again</button>
+        <button data-screen="menu" class="secondary">Main menu</button>
+      </div>
+    </div>
+  </main>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
