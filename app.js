@@ -515,7 +515,6 @@ $('#sound').onchange = e => { settings.sound = e.target.checked; save(); };
 $('#music').onchange = e => { settings.music = e.target.checked; save(); };
 $('#soundBtn').onclick = () => { settings.sound = !settings.sound; save(); $('#soundBtn').textContent = settings.sound ? '🔊' : '🔇'; };
 
-// Online room client
 let ws;
 function connect(type) {
   let name = $('#playerName').value || 'Rusher', room = $('#roomCode').value;
